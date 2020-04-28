@@ -172,7 +172,7 @@ DEFAULT_CONNECTORS=(
     tap-snowflake
     tap-zendesk
     target-s3-csv
-    target-snowflake
+#    target-snowflake # bugado
     target-redshift
     transform-field
 )

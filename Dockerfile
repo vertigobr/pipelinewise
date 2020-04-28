@@ -7,13 +7,16 @@ RUN apt-get -qq update && apt-get -qqy install \
     && pip install --upgrade pip
 
 # Oracle Instant Clinet for tap-oracle
-ADD https://download.oracle.com/otn_software/linux/instantclient/193000/oracle-instantclient19.3-basiclite-19.3.0.0.0-1.x86_64.rpm /app/oracle-instantclient.rpm
-RUN alien -i /app/oracle-instantclient.rpm --scripts && rm -rf /app/oracle-instantclient.rpm
+RUN mkdir -p /app && \
+    wget https://download.oracle.com/otn_software/linux/instantclient/193000/oracle-instantclient19.3-basiclite-19.3.0.0.0-1.x86_64.rpm -q -O /app/oracle-instantclient.rpm && \
+    alien -i /app/oracle-instantclient.rpm --scripts && \
+    rm -rf /app/oracle-instantclient.rpm
 
 COPY . /app
 
 RUN cd /app \
-    && ./install.sh --connectors=all --acceptlicenses --nousage --notestextras \
+    && ./install.sh --connectors=all --acceptlicenses --nousage --notestextras
+RUN mkdir -p /root/.pipelinewise \
     && ln -s /root/.pipelinewise /app/.pipelinewise
 
 ENTRYPOINT ["/app/entrypoint.sh"]
