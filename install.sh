@@ -169,8 +169,8 @@ DEFAULT_CONNECTORS=(
     tap-postgres
     tap-s3-csv
     tap-salesforce
-    tap-snowflake
-    tap-zendesk
+#    tap-snowflake
+#    tap-zendesk
     target-s3-csv
 #    target-snowflake # bugado
     target-redshift
